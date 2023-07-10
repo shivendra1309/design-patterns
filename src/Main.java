@@ -1,10 +1,9 @@
-import creational.singleton.EagerInitialization;
-import creational.singleton.LazyInitialization;
-import creational.singleton.StaticBlockInitialization;
-import creational.singleton.ThreadSafeInitialization;
+import creational.singleton.*;
+
+import java.io.*;
 
 public class Main {
-    public static void main(String[] args) {
+    public static void main(String[] args) throws IOException, ClassNotFoundException {
        // EagerInitialization
         EagerInitialization instance1 = EagerInitialization.getInstance();
         EagerInitialization instance2 = EagerInitialization.getInstance();
@@ -25,5 +24,18 @@ public class Main {
         ThreadSafeInitialization instanceTSI = ThreadSafeInitialization.getInstance();
         ThreadSafeInitialization instanceTSI2 = ThreadSafeInitialization.getInstance();
         System.out.println(instanceTSI == instanceTSI2);
+
+        SerializedInitialization instanceSI = SerializedInitialization.getInstance();
+        ObjectOutput out = new ObjectOutputStream(new FileOutputStream("filename1.ser"));
+        out.writeObject(instanceSI);
+        out.close();
+
+        //deserialize from file to object
+        ObjectInput in = new ObjectInputStream(new FileInputStream("filename1.ser"));
+        SerializedInitialization instanceSI2 = (SerializedInitialization) in.readObject();
+        in.close();
+
+        System.out.println("instanceSI hashcode= " + instanceSI.hashCode());
+        System.out.println("instanceSI2 hashcode= " + instanceSI2.hashCode());
     }
 }
