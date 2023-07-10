@@ -20,6 +20,5 @@ public class SerializedInitialization implements Serializable {
     protected Object readResolve() {
         return getInstance();
     }
-
 }
 
