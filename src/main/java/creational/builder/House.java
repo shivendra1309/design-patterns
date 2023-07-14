@@ -1,7 +1,5 @@
 package creational.builder;
 
-import lombok.Getter;
-
 public class House {
     //required parameters
     private int bedrooms;
